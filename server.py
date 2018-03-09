@@ -4,7 +4,7 @@ import json
 
 import falcon
 
-from cqpapi import Cqp
+from cqpapi import Cqp, con_source
 
 
 class CWBResource:
@@ -31,5 +31,15 @@ class CWBResource:
         resp.content_type = falcon.MEDIA_JSON
 
 
+class ConSourceResource:
+    """Concordance Source."""
+
+    def on_get(self, req, resp):
+        """GET method."""
+        qpos = req.get_param('qpos')
+        resp.body = con_source(qpos)
+
+
 api = falcon.API()
 api.add_route('/cwb', CWBResource())
+api.add_route('/con_source', ConSourceResource())
