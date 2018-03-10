@@ -12,7 +12,7 @@ class CWBResource:
 
     def on_get(self, req, resp):
         """GET method."""
-        corpus_names = req.get_param_as_list('corpus_names', required=True)
+        corpus_names = req.get_param('corpus_names', required=True).split(',')
         token = req.get_param('token', required=True)
         window_size = int(req.get_param('window_size', default=8))
         rsize = int(req.get_param('rsize', default=0)) or None
