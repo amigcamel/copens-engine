@@ -10,4 +10,4 @@ WORKDIR $HOME
 ADD . $HOME
 RUN pip install -r requirements.txt 
 EXPOSE 7878
-CMD ["gunicorn"  , "-b", "0.0.0.0:7878", "server:api"]
+CMD ["gunicorn"  , "-b", "0.0.0.0:7878", "--access-logfile", "/dev/stdout", "server:api"]
