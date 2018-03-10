@@ -5,4 +5,9 @@ RUN wget https://nchc.dl.sourceforge.net/project/cwb/cwb/cwb-3.0.0/cwb-3.0.0-lin
     cd cwb-3.0.0-linux-x86_64 &&\
     ./install-cwb.sh
 RUN mkdir -p /usr/local/share/cwb/registry
-ADD . /copens-engine
+ENV HOME /copens-engine
+WORKDIR $HOME
+ADD . $HOME
+RUN pip install -r requirements/prod.txt 
+EXPOSE 7878
+CMD ["gunicorn"  , "-b", "0.0.0.0:7878", "server:api"]
