@@ -1,7 +1,7 @@
 # -*-coding:utf8-*-
 """CQP (Corpus Query Processor) API."""
 from __future__ import division
-from configparser import ConfigParser
+from ConfigParser import ConfigParser
 from os.path import abspath, dirname, join
 import re
 import json
@@ -46,9 +46,9 @@ class Cqp(object):
             except BaseException:
                 raise UnicodeError('Encoding error!')
         self.conclst = []
-        registry_dir = CONF['main']['registry_dir']
+        registry_dir = CONF.get('main', 'registry_dir')
         cqp = PyCQP_interface.CQP(
-            bin=CONF['main']['cqp_bin'], options='-c -r ' + registry_dir)
+            bin=CONF.get('main', 'cqp_bin'), options='-c -r ' + registry_dir)
         cqp.Exec(self.corpus_name.upper() + ";")
 
         if token.startswith('cql:'):
@@ -186,7 +186,7 @@ def con_source(qpos):
     window_size = 100
     corp_name, start, end = qpos.split('_')
     start, end = int(start), int(end)
-    registry_dir = CONF['main']['registry_dir']
+    registry_dir = CONF.get('main', 'registry_dir')
     corpus = Corpus(
         corp_name.upper(), registry_dir=registry_dir)
     words = corpus.attribute('word', 'p')
