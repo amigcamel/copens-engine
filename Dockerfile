@@ -8,6 +8,6 @@ RUN mkdir -p /usr/local/share/cwb/registry
 ENV HOME /copens-engine
 WORKDIR $HOME
 ADD . $HOME
-RUN pip install -r requirements/prod.txt 
+RUN pip install -r requirements.txt 
 EXPOSE 7878
 CMD ["gunicorn"  , "-b", "0.0.0.0:7878", "server:api"]
